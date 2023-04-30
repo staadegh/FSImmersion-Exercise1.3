@@ -6,15 +6,13 @@ let pokemonList =[{name: 'Charmander', height: 0.5, types:['Leave', 'Tree'], Abi
 
 // Part 1 of exercise 1.3.
 for (let i = 0; i <pokemonList.length; i++) { 
-    document.write(pokemonList[i].name)
-    document.write("<br>") // Creates a carriage return; next line
+    document.write(pokemonList[i].name+ "<br>")
 }
  
 document.write("<br>")
 
 for (let i = 0; i <pokemonList.length; i++) {
-    document.write(pokemonList[i].name + "(height: " + pokemonList[i].height + ")" ) 
-    document.write("<br>") // Creates a carriage return; next line
+    document.write(pokemonList[i].name + "(height: " + pokemonList[i].height + ")" + "<br>") 
 }
 
 // Part 3 of exercise 1.3.
@@ -22,9 +20,8 @@ document.write("<br>")
 
 for (let i = 0; i <pokemonList.length; i++) {
     if (pokemonList[i].height > 1.0) // Checks if the current pokemon's height is greater than 1.0; a threshold of 1.0 is chosen for the height.
-       document.write(pokemonList[i].name + "(height: " + pokemonList[i].height + ")- Wow, that's big!" ) 
+       document.write(pokemonList[i].name + "(height: " + pokemonList[i].height + ")- Wow, that's big!" + "<br>" ) 
     else 
-       document.writeln(pokemonList[i].name + "(height: " + pokemonList[i].height + ")" )
-    document.write("<br>") // Creates a carriage return; next line 
+       document.writeln(pokemonList[i].name + "(height: " + pokemonList[i].height + ")" + "<br>" )
 }
 
