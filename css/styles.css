@@ -5,3 +5,19 @@ body {
     margin-top: 50px;
     margin-left: 50px;
 }
+
+.button-class {
+    width: 160px; 
+    border-color: aqua;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 2px 4px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+}
