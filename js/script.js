@@ -12,7 +12,7 @@ let pokemonRepository = function() {
       height: 0.6,
       types: ["Green", "Sour"],
       Abilities: "Run-away",
-      EVs: "1 Speed",
+      EVs: "1 Speed ",
     },
     {
       name: "Weedle",
