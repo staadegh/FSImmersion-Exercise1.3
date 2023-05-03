@@ -1,4 +1,4 @@
-let pokemonRepository = function() {
+let pokemonRepository = (function () {
   let pokemonList = [
     {
       name: "Charmander",
@@ -55,38 +55,42 @@ let pokemonRepository = function() {
     else console.log(`Pokemon ${searchName} Is Not Found!`);
   }
 
-  function showDetails(pokemon) { 
-    console.log(pokemon)
+  function showDetails(pokemon) {
+    console.log(pokemon);
   }
 
-  function addListItem(pokemon){
-    let pokemonListUl = document.querySelector(".pokemon-list")
-    let listItem = document.createElement("li")
-    let newButton = document.createElement("button")
-    newButton.innerText = pokemon
-    newButton.classList.add("button-class")
-    newButton.addEventListener("click", showDetails)
-    listItem.appendChild(newButton)
-    pokemonListUl.appendChild(listItem) 
+  function addListItem(pokemon) {
+    let pokemonListUl = document.querySelector(".pokemon-list");
+    let listItem = document.createElement("li");
+    let newButton = document.createElement("button");
+    newButton.innerText = pokemon;
+    newButton.classList.add("button-class");
+    newButton.addEventListener("click", () => showDetails(pokemon));
+    listItem.appendChild(newButton);
+    pokemonListUl.appendChild(listItem);
   }
 
   return {
     getAll: getAll,
     add: add,
     findPokemon: findPokemon, // Bonus Task solution; use filter function to find Pokemon.
-    addListItem: addListItem
+    addListItem: addListItem,
   };
-}();
+})();
 
 // Use pokemonRepository.getAll() is used in the codes below to get the pokemonList from the above IIFE.
 //pokemonRepository.getAll().forEach((pkle) => document.write(pkle.name + "<br>"));
-pokemonRepository.getAll().forEach((pkle) =>  { 
-   pokemonRepository.addListItem(pkle.name) 
- });
+pokemonRepository.getAll().forEach((pkle) => {
+  pokemonRepository.addListItem(pkle.name);
+});
 
 document.write("<br>");
 
-pokemonRepository.getAll().forEach((pkle) =>document.write(pkle.name + "(height: " + pkle.height + ")" + "<br>"));
+pokemonRepository
+  .getAll()
+  .forEach((pkle) =>
+    document.write(pkle.name + "(height: " + pkle.height + ")" + "<br>")
+  );
 
 document.write("<br>");
 
