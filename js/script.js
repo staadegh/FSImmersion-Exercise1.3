@@ -1,41 +1,6 @@
 let pokemonRepository = (function () {
-  let pokemonList = [
-    {
-      name: "Charmander",
-      height: 0.5,
-      types: ["Leave", "Tree"],
-      Abilities: "Blaze",
-      EVs: "2 Defence",
-    },
-    {
-      name: "Metapod",
-      height: 0.6,
-      types: ["Green", "Sour"],
-      Abilities: "Run-away",
-      EVs: "1 Speed",
-    },
-    {
-      name: "Weedle",
-      height: 1.7,
-      types: ["Tall", "Short"],
-      Abilities: "Shed-skin",
-      EVs: "2 Speed",
-    },
-    {
-      name: "Horsey",
-      height: 0.5,
-      types: ["Big", "Finest"],
-      Abilities: "Shed-skin",
-      EVs: "3 Speed",
-    },
-    {
-      name: "Fearow",
-      height: 0.4,
-      types: ["Thin", "Earliest"],
-      Abilities: "Sniper",
-      EVs: "2 Speed",
-    },
-  ];
+  let pokemonList = [];
+  let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=150";
 
   function getAll() {
     return pokemonList;
@@ -56,7 +21,10 @@ let pokemonRepository = (function () {
   }
 
   function showDetails(pokemon) {
-    console.log(pokemon);
+    //console.log(pokemon);
+    pokemonRepository.loadDetails(pokemon).then(function () {
+      console.log(pokemon);
+    });
   }
 
   function addListItem(pokemon) {
@@ -70,18 +38,59 @@ let pokemonRepository = (function () {
     pokemonListUl.appendChild(listItem);
   }
 
+  function loadList() {
+    return fetch(apiUrl)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (json) {
+        json.results.forEach(function (item) {
+          let pokemon = {
+            name: item.name,
+            detailsUrl: item.url,
+          };
+          add(pokemon);
+        });
+      })
+      .catch(function (e) {
+        console.error(e);
+      });
+  }
+
+  function loadDetails(item) {
+    let url = item.detailsUrl;
+    return fetch(url)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (details) {
+        // Now we add the details to the item
+        item.imageUrl = details.sprites.front_default;
+        item.height = details.height;
+        item.types = details.types;
+      })
+      .catch(function (e) {
+        console.error(e);
+      });
+  }
+
   return {
     getAll: getAll,
     add: add,
     findPokemon: findPokemon, // Bonus Task solution; use filter function to find Pokemon.
     addListItem: addListItem,
+    loadList: loadList,
+    loadDetails: loadDetails,
+    showDetails: showDetails,
   };
 })();
 
 // Use pokemonRepository.getAll() is used in the codes below to get the pokemonList from the above IIFE.
 //pokemonRepository.getAll().forEach((pkle) => document.write(pkle.name + "<br>"));
-pokemonRepository.getAll().forEach((pkle) => {
-  pokemonRepository.addListItem(pkle.name);
+pokemonRepository.loadList().then(function () {
+  pokemonRepository.getAll().forEach((pkle) => {
+    pokemonRepository.addListItem(pkle.name);
+  });
 });
 
 document.write("<br>");
