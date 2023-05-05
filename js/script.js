@@ -21,7 +21,6 @@ let pokemonRepository = (function () {
   }
 
   function showDetails(pokemon) {
-    //console.log(pokemon);
     pokemonRepository.loadDetails(pokemon).then(function () {
       console.log(pokemon);
     });
@@ -47,7 +46,7 @@ let pokemonRepository = (function () {
         json.results.forEach(function (item) {
           let pokemon = {
             name: item.name,
-            detailsUrl: item.url,
+            detailsUrl: item.url
           };
           add(pokemon);
         });
@@ -59,15 +58,16 @@ let pokemonRepository = (function () {
 
   function loadDetails(item) {
     let url = item.detailsUrl;
+   
     return fetch(url)
-      .then(function (response) {
-        return response.json();
+      .then(function (response) { 
+        return response.json(); 
       })
-      .then(function (details) {
+      .then(function (details) { 
         // Now we add the details to the item
         item.imageUrl = details.sprites.front_default;
         item.height = details.height;
-        item.types = details.types;
+        item.types = details.types; 
       })
       .catch(function (e) {
         console.error(e);
