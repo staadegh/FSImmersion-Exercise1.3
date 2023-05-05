@@ -30,7 +30,7 @@ let pokemonRepository = (function () {
     let pokemonListUl = document.querySelector(".pokemon-list");
     let listItem = document.createElement("li");
     let newButton = document.createElement("button");
-    newButton.innerText = pokemon;
+    newButton.innerText = pokemon.name;
     newButton.classList.add("button-class");
     newButton.addEventListener("click", () => showDetails(pokemon));
     listItem.appendChild(newButton);
@@ -48,7 +48,8 @@ let pokemonRepository = (function () {
             name: item.name,
             detailsUrl: item.url
           };
-          add(pokemon);
+        //  add(pokemon);
+        addListItem(pokemon);
         });
       })
       .catch(function (e) {
