@@ -22,9 +22,14 @@ let pokemonRepository = (function () {
 
   function showDetails(pokemon) {
     pokemonRepository.loadDetails(pokemon).then(function () {
-     // console.log(pokemon);
-     // Call function showModal with Pokemon's Name, detailsUrl, ImageUrl and height
-      showModal( `Pokemon's Name:  ${pokemon.name}`, `Pokemon's details Urls: ${pokemon.detailsUrl}`, pokemon.imageUrl, `Pokemon's Height: ${pokemon.height}`)
+      // console.log(pokemon);
+      // Call function showModal with Pokemon's Name, detailsUrl, ImageUrl and height
+      showModal(
+        `Pokemon's Name:  ${pokemon.name}`,
+        `Pokemon's details Urls: ${pokemon.detailsUrl}`,
+        pokemon.imageUrl,
+        `Pokemon's Height: ${pokemon.height}`
+      );
     });
   }
 
@@ -48,10 +53,10 @@ let pokemonRepository = (function () {
         json.results.forEach(function (item) {
           let pokemon = {
             name: item.name,
-            detailsUrl: item.url
+            detailsUrl: item.url,
           };
-        //  add(pokemon);
-        addListItem(pokemon);
+          //  add(pokemon);
+          addListItem(pokemon);
         });
       })
       .catch(function (e) {
@@ -61,62 +66,60 @@ let pokemonRepository = (function () {
 
   function loadDetails(item) {
     let url = item.detailsUrl;
-   
+
     return fetch(url)
-      .then(function (response) { 
-        return response.json(); 
+      .then(function (response) {
+        return response.json();
       })
       .then(function (details) {
         // Now we add the details to the item
-        item.imageUrl = details.sprites.front_default
-        item.height = details.height
-        item.types = details.types
+        item.imageUrl = details.sprites.front_default;
+        item.height = details.height;
+        item.types = details.types;
       })
       .catch(function (e) {
         console.error(e);
       });
   }
-  
+
   //
-  function showModal(title, text, image, pkmHeight) { 
-    let modalContainer = document.querySelector('#modal-container');
-  
+  function showModal(title, text, image, pkmHeight) {
+    let modalContainer = document.querySelector("#modal-container");
+
     // Clear all existing modal content
-    modalContainer.innerHTML = '';
-  
-    let modal = document.createElement('div');
-    modal.classList.add('modal');
-  
+    modalContainer.innerHTML = "";
+
+    let modal = document.createElement("div");
+    modal.classList.add("modal");
+
     // Add the new modal content
-    let closeButtonElement = document.createElement('button');
-    closeButtonElement.classList.add('modal-close');
-    closeButtonElement.innerText = 'Close';
-    closeButtonElement.addEventListener('click', hideModal);
-  
-    let titleElement = document.createElement('h1');
+    let closeButtonElement = document.createElement("button");
+    closeButtonElement.classList.add("modal-close");
+    closeButtonElement.innerText = "Close";
+    closeButtonElement.addEventListener("click", hideModal);
+
+    let titleElement = document.createElement("h1");
     titleElement.innerText = title;
-  
-    let contentElement = document.createElement('p');
+
+    let contentElement = document.createElement("p");
     contentElement.innerText = text;
 
-    let pkmHeightElement = document.createElement("p") // Creates a p Element for Pokemon height
-    pkmHeightElement.innerText= pkmHeight
+    let pkmHeightElement = document.createElement("p"); // Creates a p Element for Pokemon height
+    pkmHeightElement.innerText = pkmHeight;
 
-    let imageElement = document.createElement("img") // Creates an Image Element for Pokemon imageUrl
-    imageElement.src = image   
-  
+    let imageElement = document.createElement("img"); // Creates an Image Element for Pokemon imageUrl
+    imageElement.src = image;
+
     modal.appendChild(closeButtonElement);
     modal.appendChild(titleElement);
     modal.appendChild(contentElement);
     modal.appendChild(pkmHeightElement); // Appends the p Element for Pokemon's height
     modal.appendChild(imageElement); // Appends the Image Element
     modalContainer.appendChild(modal);
-  
-  
-  
-    modalContainer.classList.add('is-visible');
-  
-    modalContainer.addEventListener('click', (e) => {
+
+    modalContainer.classList.add("is-visible");
+
+    modalContainer.addEventListener("click", (e) => {
       // Since this is also triggered when clicking INSIDE the modal
       // We only want to close if the user clicks directly on the overlay
       let target = e.target;
@@ -124,22 +127,20 @@ let pokemonRepository = (function () {
         hideModal();
       }
     });
-  
-    
   }
-  
+
   function hideModal() {
-    let modalContainer = document.querySelector('#modal-container');
-    modalContainer.classList.remove('is-visible');
+    let modalContainer = document.querySelector("#modal-container");
+    modalContainer.classList.remove("is-visible");
   }
-  
-  window.addEventListener('keydown', (e) => {
-    let modalContainer = document.querySelector('#modal-container');
-    if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
-      hideModal();  
+
+  window.addEventListener("keydown", (e) => {
+    let modalContainer = document.querySelector("#modal-container");
+    if (e.key === "Escape" && modalContainer.classList.contains("is-visible")) {
+      hideModal();
     }
   });
-  
+
   /*document.querySelector('#show-modal').addEventListener('click', () => {
     showModal('Modal title', 'This is the modal content!');
   } )*/
@@ -186,8 +187,7 @@ pokemonRepository.getAll().forEach((pkle) => {
 pokemonRepository.findPokemon("Metapod2"); // Bonus Task solution; use filter function to find Pokemon Metapod2. Result: Pokemon Metapod2 Is Not Found!
 pokemonRepository.findPokemon("Metapod"); // Bonus Task solution; use filter function to find Pokemon Metapod. Result: Pokemon Metapod Is Found!
 
-
-  /*
+/*
 function showModal(title, text) {
   let modalContainer = document.querySelector('#modal-container');
 
