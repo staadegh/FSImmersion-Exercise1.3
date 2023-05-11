@@ -121,4 +121,4 @@ pokemonRepository.loadList().then(function () {
       : document.writeln(e.name + "(height: " + e.height + ")<br>");
   }),
 pokemonRepository.findPokemon("Metapod2")
-pokemonRepository.findPokemon("Some")
+pokemonRepository.findPokemon("Someone")
